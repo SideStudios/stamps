@@ -11,6 +11,7 @@
 
 from decimal import Decimal
 from logging import getLogger
+from past.builtins import basestring
 from re import compile
 from suds import WebFault
 from suds.bindings.document import Document
