@@ -9,9 +9,9 @@
     :license: BSD, see LICENSE for more details.
 """
 
+from builtins import str
 from decimal import Decimal
 from logging import getLogger
-from past.builtins import basestring
 from re import compile
 from suds import WebFault
 from suds.bindings.document import Document
@@ -264,7 +264,7 @@ class XDecimal(XBuiltin):
             value for python.
         """
         if topython:
-            if isinstance(value, basestring) and len(value):
+            if isinstance(value, str) and len(value):
                 ret_val = Decimal(value)
             else:
                 ret_val = None
