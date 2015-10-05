@@ -9,7 +9,11 @@
     :license: BSD, see LICENSE for more details.
 """
 
-from ConfigParser import NoOptionError, NoSectionError, SafeConfigParser
+try:
+    import configparser as ConfigParser
+except ImportError:
+    import ConfigParser
+
 from urllib import pathname2url
 from urlparse import urljoin
 import os
@@ -46,7 +50,7 @@ class StampsConfiguration(object):
 
     def __init__(self, integration_id=None, username=None, password=None,
             wsdl=None, port=None, file_name=None, section="default"):
-        parser = SafeConfigParser()
+        parser = ConfigParser.SafeConfigParser()
 
         if file_name:
             parser.read([file_name])
@@ -96,7 +100,7 @@ class StampsConfiguration(object):
 
         try:
             ret_val = parser.get(section, name, vars=vars)
-        except (NoSectionError, NoOptionError):
+        except (ConfigParser.NoSectionError, ConfigParser.NoOptionError):
             ret_val = default
 
         return ret_val
