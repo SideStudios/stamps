@@ -10,12 +10,17 @@
 """
 
 try:
-    import configparser as ConfigParser
+    import configparser as ConfigParser  # Py3
 except ImportError:
     import ConfigParser
 
-from urllib import pathname2url
-from urlparse import urljoin
+try:
+    from urllib.parse import urljoin   # Py3
+    from urllib.request import pathname2url   # Py3
+except ImportError:
+    from urllib import pathname2url
+    from urlparse import urljoin
+
 import os
 
 
