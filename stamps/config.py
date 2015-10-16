@@ -24,9 +24,6 @@ except ImportError:
 import os
 
 
-VERSION = 49
-
-
 class StampsConfiguration(object):
     """Stamps service configuration. The service configuration may be provided
     directly via parameter values, or it can be read from a configuration file.
@@ -51,10 +48,11 @@ class StampsConfiguration(object):
     :param port: Default `None`. The name of the WSDL port to use.
     :param file_name: Default `None`. Optional configuration file name.
     :param section: Default ``'default'``. The configuration section to use.
+    :param version: Default `49`. The API version to use.
     """
 
     def __init__(self, integration_id=None, username=None, password=None,
-            wsdl=None, port=None, file_name=None, section="default"):
+            wsdl=None, port=None, file_name=None, section="default", version=49):
         parser = ConfigParser.SafeConfigParser()
 
         if file_name:
@@ -74,15 +72,15 @@ class StampsConfiguration(object):
             directory_path = os.path.dirname(file_path)
 
             if wsdl == "testing":
-                file_name = "stamps_v{0}.test.wsdl".format(VERSION)
+                file_name = "stamps_v{0}.test.wsdl".format(version)
             else:
-                file_name = "stamps_v{0}.wsdl".format(VERSION)
+                file_name = "stamps_v{0}.wsdl".format(version)
 
             wsdl = os.path.join(directory_path, "wsdls", file_name)
             self.wsdl = urljoin("file:", pathname2url(wsdl))
 
         if self.port is None:
-            self.port = "SwsimV{0}Soap12".format(VERSION)
+            self.port = "SwsimV{0}Soap12".format(version)
 
         assert self.integration_id
         assert self.username
