@@ -186,7 +186,7 @@ class StampsService(BaseService):
         return self.call("GetAccountInfo")
 
     def get_label(self, from_address, to_address, rate, transaction_id,
-            sample=False):
+            sample=False, **kwargs):
         """Get a shipping label.
 
         :param from_address: The shipping 'from' address.
@@ -197,7 +197,7 @@ class StampsService(BaseService):
         :param sample: Default ``False``. Get a sample label without postage.
         """
         return self.call("CreateIndicium", IntegratorTxID=transaction_id,
-                Rate=rate, From=from_address, To=to_address, SampleOnly=sample)
+                Rate=rate, From=from_address, To=to_address, SampleOnly=sample, **kwargs)
 
     def get_postage_status(self, transaction_id):
         """Get postage purchase status.
